@@ -7,7 +7,17 @@ export const enum Endianness {
   Big = 0,
   Little = 1
 }
-export declare function test(number: number): void
+export interface NetworkIdentifier {
+  /**
+  * The address of the connection.
+  */
+  address: string
+  /**
+  * The port of the connection.
+  */
+  port: number
+}
+export declare function createRaknetServer(address: string, port?: number | undefined | null): Server
 export declare class BinaryStream {
   /**
   * **binary**
@@ -905,4 +915,19 @@ export declare class Uuid {
   * Writes a signed 128-bit ( 16 bytes ) uuid string to the stream.
   */
   static write(stream: BinaryStream, value: string): void
+}
+export declare class Server {
+  address: string
+  port: number
+  recvFrom(): void
+}
+export declare class Connection {
+  /**
+  * The network identifier of the connection.
+  */
+  identifier: NetworkIdentifier
+  /**
+  * The maximum transmission unit size of the connection.
+  */
+  mtuSize: number
 }
