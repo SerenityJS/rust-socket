@@ -7,6 +7,11 @@ export const enum Endianness {
   Big = 0,
   Little = 1
 }
+export interface Encapsulated {
+  identifier: NetworkIdentifier
+  buffer: Buffer
+  deltaTime: number
+}
 export interface NetworkIdentifier {
   /**
   * The address of the connection.
@@ -17,7 +22,6 @@ export interface NetworkIdentifier {
   */
   port: number
 }
-export declare function createRaknetServer(address: string, port?: number | undefined | null): Server
 export declare class BinaryStream {
   /**
   * **binary**
@@ -919,7 +923,8 @@ export declare class Uuid {
 export declare class Server {
   address: string
   port: number
-  recvFrom(): void
+  constructor(address: string, port?: number | undefined | null)
+  start(callback: (err: Error | null, arg: Encapsulated) => any, tps: number): void
 }
 export declare class Connection {
   /**

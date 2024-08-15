@@ -1,5 +1,5 @@
 use napi_derive::napi;
-use std::net::SocketAddr;
+use std::{hash::Hash, net::SocketAddr};
 
 #[napi(object)]
 #[derive(Clone, PartialEq, Eq)]
@@ -51,5 +51,12 @@ impl NetworkIdentifier {
   */
   pub fn to_socket_addr(&self) -> SocketAddr {
     format!("{}:{}", self.address, self.port).parse().unwrap()
+  }
+}
+
+impl Hash for NetworkIdentifier {
+  fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+    self.address.hash(state);
+    self.port.hash(state);
   }
 }
