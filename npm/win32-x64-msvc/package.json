@@ -1,6 +1,7 @@
 {
   "name": "@serenityjs/rust-socket-win32-x64-msvc",
   "version": "0.0.1",
+  "repository": "https://github.com/SerenityJS/rust-socket",
   "os": [
     "win32"
   ],

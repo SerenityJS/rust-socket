@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "types": "index.d.ts",
+  "repository": "https://github.com/SerenityJS/rust-socket",
   "napi": {
     "name": "rust-socket",
     "triples": {
