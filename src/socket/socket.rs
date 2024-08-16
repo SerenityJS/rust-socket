@@ -74,8 +74,16 @@ impl Socket {
       // Create a buffer to store the incoming packet
       let mut buf = [0; 2048];
 
+      let mut time = std::time::Instant::now();
+
       // Loop to receive packets
       loop {
+        // Calculate the delta time
+        let delta_time = time.elapsed().as_millis() as u32;
+
+        // Reset the time
+        time = std::time::Instant::now();
+
         // Lock the alive mutex
         let alive = alive.lock().unwrap();
 
@@ -120,7 +128,7 @@ impl Socket {
         };
 
         // Create a new Datagram instance
-        let datagram = Datagram::new(identifier, buffer, size as u32, socket);
+        let datagram = Datagram::new(identifier, buffer, size as u32, socket, delta_time);
 
         // Call the recv function
         recv.call(Ok(datagram), napi::threadsafe_function::ThreadsafeFunctionCallMode::NonBlocking);
@@ -143,11 +151,11 @@ impl Socket {
   }
 
   #[napi]
-  pub fn send(&self, identifier: NetworkIdentifier, stream: BinaryStream) -> Result<()> {
+  pub fn send(&self, identifier: NetworkIdentifier, stream: &BinaryStream) -> Result<()> {
     // Lock the socket
     let socket = self.socket.lock().unwrap();
     let addr = identifier.to_addr();
-    let buf = stream.binary;
+    let buf = &stream.binary;
 
     // Send the packet
     match socket.send_to(&buf, addr) {

@@ -26,6 +26,11 @@ pub struct Datagram {
   */
   pub size: u32,
 
+  /**
+   * The time between the last packet and the current packet.
+  */
+  pub delta_time: u32,
+
   #[napi(skip)]
   pub socket: UdpSocket,
 }
@@ -35,15 +40,15 @@ impl Datagram {
   /**
    * Create a new instance of the Datagram struct.
    */
-  pub fn new(identifier: NetworkIdentifier, buffer: Buffer, size: u32, socket: UdpSocket) -> Self {
+  pub fn new(identifier: NetworkIdentifier, buffer: Buffer, size: u32, socket: UdpSocket, delta_time: u32) -> Self {
     // Create a new BinaryStream from the buffer.
     let stream = BinaryStream::new(Some(buffer), None);
 
-    Self { identifier, stream, size, socket }
+    Self { identifier, stream, size, socket , delta_time}
   } 
 
   #[napi]
-  pub fn reply(&self, stream: BinaryStream) -> Result<()> {
+  pub fn reply(&self, stream: &BinaryStream) -> Result<()> {
     match self.socket.send_to(&stream.binary, self.identifier.to_addr()) {
       Ok(_) => Ok(()),
       Err(err) => Err(err.into())

@@ -931,6 +931,10 @@ export declare class Datagram {
   * The size of the buffer.
   */
   size: number
+  /**
+  * The time between the last packet and the current packet.
+  */
+  deltaTime: number
   reply(stream: BinaryStream): void
 }
 export declare class Socket {
