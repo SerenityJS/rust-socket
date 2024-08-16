@@ -1,1 +1,1 @@
-# rust-raknet
+# @serenityjs/rust-socket

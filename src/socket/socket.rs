@@ -1,5 +1,6 @@
 #![deny(clippy::all)]
 
+use binarystream::binary::BinaryStream;
 use napi::{bindgen_prelude::Buffer, threadsafe_function::ThreadsafeFunction, Error, Result};
 use napi_derive::napi;
 use std::{net::UdpSocket, sync::{Arc, Mutex}};
@@ -142,11 +143,11 @@ impl Socket {
   }
 
   #[napi]
-  pub fn send(&self, identifier: NetworkIdentifier, buffer: Buffer) -> Result<()> {
+  pub fn send(&self, identifier: NetworkIdentifier, stream: BinaryStream) -> Result<()> {
     // Lock the socket
     let socket = self.socket.lock().unwrap();
     let addr = identifier.to_addr();
-    let buf = buffer.to_vec();
+    let buf = stream.binary;
 
     // Send the packet
     match socket.send_to(&buf, addr) {
