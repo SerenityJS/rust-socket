@@ -1,5 +1,5 @@
 {
-  "name": "@serenityjs/rust-raknet-darwin-arm64",
+  "name": "@serenityjs/rust-socket-darwin-arm64",
   "version": "0.0.0",
   "os": [
     "darwin"
@@ -7,9 +7,9 @@
   "cpu": [
     "arm64"
   ],
-  "main": "rust-raknet.darwin-arm64.node",
+  "main": "rust-socket.darwin-arm64.node",
   "files": [
-    "rust-raknet.darwin-arm64.node"
+    "rust-socket.darwin-arm64.node"
   ],
   "license": "MIT",
   "engines": {

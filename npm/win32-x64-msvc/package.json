@@ -1,5 +1,5 @@
 {
-  "name": "@serenityjs/rust-raknet-win32-x64-msvc",
+  "name": "@serenityjs/rust-socket-win32-x64-msvc",
   "version": "0.0.0",
   "os": [
     "win32"
@@ -7,9 +7,9 @@
   "cpu": [
     "x64"
   ],
-  "main": "rust-raknet.win32-x64-msvc.node",
+  "main": "rust-socket.win32-x64-msvc.node",
   "files": [
-    "rust-raknet.win32-x64-msvc.node"
+    "rust-socket.win32-x64-msvc.node"
   ],
   "license": "MIT",
   "engines": {

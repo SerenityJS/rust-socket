@@ -32,24 +32,24 @@ switch (platform) {
   case 'android':
     switch (arch) {
       case 'arm64':
-        localFileExisted = existsSync(join(__dirname, 'rust-raknet.android-arm64.node'))
+        localFileExisted = existsSync(join(__dirname, 'rust-socket.android-arm64.node'))
         try {
           if (localFileExisted) {
-            nativeBinding = require('./rust-raknet.android-arm64.node')
+            nativeBinding = require('./rust-socket.android-arm64.node')
           } else {
-            nativeBinding = require('@serenityjs/rust-raknet-android-arm64')
+            nativeBinding = require('@serenityjs/rust-socket-android-arm64')
           }
         } catch (e) {
           loadError = e
         }
         break
       case 'arm':
-        localFileExisted = existsSync(join(__dirname, 'rust-raknet.android-arm-eabi.node'))
+        localFileExisted = existsSync(join(__dirname, 'rust-socket.android-arm-eabi.node'))
         try {
           if (localFileExisted) {
-            nativeBinding = require('./rust-raknet.android-arm-eabi.node')
+            nativeBinding = require('./rust-socket.android-arm-eabi.node')
           } else {
-            nativeBinding = require('@serenityjs/rust-raknet-android-arm-eabi')
+            nativeBinding = require('@serenityjs/rust-socket-android-arm-eabi')
           }
         } catch (e) {
           loadError = e
@@ -63,13 +63,13 @@ switch (platform) {
     switch (arch) {
       case 'x64':
         localFileExisted = existsSync(
-          join(__dirname, 'rust-raknet.win32-x64-msvc.node')
+          join(__dirname, 'rust-socket.win32-x64-msvc.node')
         )
         try {
           if (localFileExisted) {
-            nativeBinding = require('./rust-raknet.win32-x64-msvc.node')
+            nativeBinding = require('./rust-socket.win32-x64-msvc.node')
           } else {
-            nativeBinding = require('@serenityjs/rust-raknet-win32-x64-msvc')
+            nativeBinding = require('@serenityjs/rust-socket-win32-x64-msvc')
           }
         } catch (e) {
           loadError = e
@@ -77,13 +77,13 @@ switch (platform) {
         break
       case 'ia32':
         localFileExisted = existsSync(
-          join(__dirname, 'rust-raknet.win32-ia32-msvc.node')
+          join(__dirname, 'rust-socket.win32-ia32-msvc.node')
         )
         try {
           if (localFileExisted) {
-            nativeBinding = require('./rust-raknet.win32-ia32-msvc.node')
+            nativeBinding = require('./rust-socket.win32-ia32-msvc.node')
           } else {
-            nativeBinding = require('@serenityjs/rust-raknet-win32-ia32-msvc')
+            nativeBinding = require('@serenityjs/rust-socket-win32-ia32-msvc')
           }
         } catch (e) {
           loadError = e
@@ -91,13 +91,13 @@ switch (platform) {
         break
       case 'arm64':
         localFileExisted = existsSync(
-          join(__dirname, 'rust-raknet.win32-arm64-msvc.node')
+          join(__dirname, 'rust-socket.win32-arm64-msvc.node')
         )
         try {
           if (localFileExisted) {
-            nativeBinding = require('./rust-raknet.win32-arm64-msvc.node')
+            nativeBinding = require('./rust-socket.win32-arm64-msvc.node')
           } else {
-            nativeBinding = require('@serenityjs/rust-raknet-win32-arm64-msvc')
+            nativeBinding = require('@serenityjs/rust-socket-win32-arm64-msvc')
           }
         } catch (e) {
           loadError = e
@@ -108,23 +108,23 @@ switch (platform) {
     }
     break
   case 'darwin':
-    localFileExisted = existsSync(join(__dirname, 'rust-raknet.darwin-universal.node'))
+    localFileExisted = existsSync(join(__dirname, 'rust-socket.darwin-universal.node'))
     try {
       if (localFileExisted) {
-        nativeBinding = require('./rust-raknet.darwin-universal.node')
+        nativeBinding = require('./rust-socket.darwin-universal.node')
       } else {
-        nativeBinding = require('@serenityjs/rust-raknet-darwin-universal')
+        nativeBinding = require('@serenityjs/rust-socket-darwin-universal')
       }
       break
     } catch {}
     switch (arch) {
       case 'x64':
-        localFileExisted = existsSync(join(__dirname, 'rust-raknet.darwin-x64.node'))
+        localFileExisted = existsSync(join(__dirname, 'rust-socket.darwin-x64.node'))
         try {
           if (localFileExisted) {
-            nativeBinding = require('./rust-raknet.darwin-x64.node')
+            nativeBinding = require('./rust-socket.darwin-x64.node')
           } else {
-            nativeBinding = require('@serenityjs/rust-raknet-darwin-x64')
+            nativeBinding = require('@serenityjs/rust-socket-darwin-x64')
           }
         } catch (e) {
           loadError = e
@@ -132,13 +132,13 @@ switch (platform) {
         break
       case 'arm64':
         localFileExisted = existsSync(
-          join(__dirname, 'rust-raknet.darwin-arm64.node')
+          join(__dirname, 'rust-socket.darwin-arm64.node')
         )
         try {
           if (localFileExisted) {
-            nativeBinding = require('./rust-raknet.darwin-arm64.node')
+            nativeBinding = require('./rust-socket.darwin-arm64.node')
           } else {
-            nativeBinding = require('@serenityjs/rust-raknet-darwin-arm64')
+            nativeBinding = require('@serenityjs/rust-socket-darwin-arm64')
           }
         } catch (e) {
           loadError = e
@@ -152,12 +152,12 @@ switch (platform) {
     if (arch !== 'x64') {
       throw new Error(`Unsupported architecture on FreeBSD: ${arch}`)
     }
-    localFileExisted = existsSync(join(__dirname, 'rust-raknet.freebsd-x64.node'))
+    localFileExisted = existsSync(join(__dirname, 'rust-socket.freebsd-x64.node'))
     try {
       if (localFileExisted) {
-        nativeBinding = require('./rust-raknet.freebsd-x64.node')
+        nativeBinding = require('./rust-socket.freebsd-x64.node')
       } else {
-        nativeBinding = require('@serenityjs/rust-raknet-freebsd-x64')
+        nativeBinding = require('@serenityjs/rust-socket-freebsd-x64')
       }
     } catch (e) {
       loadError = e
@@ -168,26 +168,26 @@ switch (platform) {
       case 'x64':
         if (isMusl()) {
           localFileExisted = existsSync(
-            join(__dirname, 'rust-raknet.linux-x64-musl.node')
+            join(__dirname, 'rust-socket.linux-x64-musl.node')
           )
           try {
             if (localFileExisted) {
-              nativeBinding = require('./rust-raknet.linux-x64-musl.node')
+              nativeBinding = require('./rust-socket.linux-x64-musl.node')
             } else {
-              nativeBinding = require('@serenityjs/rust-raknet-linux-x64-musl')
+              nativeBinding = require('@serenityjs/rust-socket-linux-x64-musl')
             }
           } catch (e) {
             loadError = e
           }
         } else {
           localFileExisted = existsSync(
-            join(__dirname, 'rust-raknet.linux-x64-gnu.node')
+            join(__dirname, 'rust-socket.linux-x64-gnu.node')
           )
           try {
             if (localFileExisted) {
-              nativeBinding = require('./rust-raknet.linux-x64-gnu.node')
+              nativeBinding = require('./rust-socket.linux-x64-gnu.node')
             } else {
-              nativeBinding = require('@serenityjs/rust-raknet-linux-x64-gnu')
+              nativeBinding = require('@serenityjs/rust-socket-linux-x64-gnu')
             }
           } catch (e) {
             loadError = e
@@ -197,26 +197,26 @@ switch (platform) {
       case 'arm64':
         if (isMusl()) {
           localFileExisted = existsSync(
-            join(__dirname, 'rust-raknet.linux-arm64-musl.node')
+            join(__dirname, 'rust-socket.linux-arm64-musl.node')
           )
           try {
             if (localFileExisted) {
-              nativeBinding = require('./rust-raknet.linux-arm64-musl.node')
+              nativeBinding = require('./rust-socket.linux-arm64-musl.node')
             } else {
-              nativeBinding = require('@serenityjs/rust-raknet-linux-arm64-musl')
+              nativeBinding = require('@serenityjs/rust-socket-linux-arm64-musl')
             }
           } catch (e) {
             loadError = e
           }
         } else {
           localFileExisted = existsSync(
-            join(__dirname, 'rust-raknet.linux-arm64-gnu.node')
+            join(__dirname, 'rust-socket.linux-arm64-gnu.node')
           )
           try {
             if (localFileExisted) {
-              nativeBinding = require('./rust-raknet.linux-arm64-gnu.node')
+              nativeBinding = require('./rust-socket.linux-arm64-gnu.node')
             } else {
-              nativeBinding = require('@serenityjs/rust-raknet-linux-arm64-gnu')
+              nativeBinding = require('@serenityjs/rust-socket-linux-arm64-gnu')
             }
           } catch (e) {
             loadError = e
@@ -226,26 +226,26 @@ switch (platform) {
       case 'arm':
         if (isMusl()) {
           localFileExisted = existsSync(
-            join(__dirname, 'rust-raknet.linux-arm-musleabihf.node')
+            join(__dirname, 'rust-socket.linux-arm-musleabihf.node')
           )
           try {
             if (localFileExisted) {
-              nativeBinding = require('./rust-raknet.linux-arm-musleabihf.node')
+              nativeBinding = require('./rust-socket.linux-arm-musleabihf.node')
             } else {
-              nativeBinding = require('@serenityjs/rust-raknet-linux-arm-musleabihf')
+              nativeBinding = require('@serenityjs/rust-socket-linux-arm-musleabihf')
             }
           } catch (e) {
             loadError = e
           }
         } else {
           localFileExisted = existsSync(
-            join(__dirname, 'rust-raknet.linux-arm-gnueabihf.node')
+            join(__dirname, 'rust-socket.linux-arm-gnueabihf.node')
           )
           try {
             if (localFileExisted) {
-              nativeBinding = require('./rust-raknet.linux-arm-gnueabihf.node')
+              nativeBinding = require('./rust-socket.linux-arm-gnueabihf.node')
             } else {
-              nativeBinding = require('@serenityjs/rust-raknet-linux-arm-gnueabihf')
+              nativeBinding = require('@serenityjs/rust-socket-linux-arm-gnueabihf')
             }
           } catch (e) {
             loadError = e
@@ -255,26 +255,26 @@ switch (platform) {
       case 'riscv64':
         if (isMusl()) {
           localFileExisted = existsSync(
-            join(__dirname, 'rust-raknet.linux-riscv64-musl.node')
+            join(__dirname, 'rust-socket.linux-riscv64-musl.node')
           )
           try {
             if (localFileExisted) {
-              nativeBinding = require('./rust-raknet.linux-riscv64-musl.node')
+              nativeBinding = require('./rust-socket.linux-riscv64-musl.node')
             } else {
-              nativeBinding = require('@serenityjs/rust-raknet-linux-riscv64-musl')
+              nativeBinding = require('@serenityjs/rust-socket-linux-riscv64-musl')
             }
           } catch (e) {
             loadError = e
           }
         } else {
           localFileExisted = existsSync(
-            join(__dirname, 'rust-raknet.linux-riscv64-gnu.node')
+            join(__dirname, 'rust-socket.linux-riscv64-gnu.node')
           )
           try {
             if (localFileExisted) {
-              nativeBinding = require('./rust-raknet.linux-riscv64-gnu.node')
+              nativeBinding = require('./rust-socket.linux-riscv64-gnu.node')
             } else {
-              nativeBinding = require('@serenityjs/rust-raknet-linux-riscv64-gnu')
+              nativeBinding = require('@serenityjs/rust-socket-linux-riscv64-gnu')
             }
           } catch (e) {
             loadError = e
@@ -283,13 +283,13 @@ switch (platform) {
         break
       case 's390x':
         localFileExisted = existsSync(
-          join(__dirname, 'rust-raknet.linux-s390x-gnu.node')
+          join(__dirname, 'rust-socket.linux-s390x-gnu.node')
         )
         try {
           if (localFileExisted) {
-            nativeBinding = require('./rust-raknet.linux-s390x-gnu.node')
+            nativeBinding = require('./rust-socket.linux-s390x-gnu.node')
           } else {
-            nativeBinding = require('@serenityjs/rust-raknet-linux-s390x-gnu')
+            nativeBinding = require('@serenityjs/rust-socket-linux-s390x-gnu')
           }
         } catch (e) {
           loadError = e
@@ -310,7 +310,7 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`)
 }
 
-const { BinaryStream, Endianness, Bool, Uint8, Uint16, Uint24, Uint32, Uint64, UShort, ULong, Byte, Int8, Int16, Int24, Int32, Int64, Short, Long, Float32, Float64, VarInt, ZigZag, VarLong, ZigZong, String16, String32, VarString, Uuid, Socket } = nativeBinding
+const { BinaryStream, Endianness, Bool, Uint8, Uint16, Uint24, Uint32, Uint64, UShort, ULong, Byte, Int8, Int16, Int24, Int32, Int64, Short, Long, Float32, Float64, VarInt, ZigZag, VarLong, ZigZong, String16, String32, VarString, Uuid, Datagram, Socket } = nativeBinding
 
 module.exports.BinaryStream = BinaryStream
 module.exports.Endianness = Endianness
@@ -340,4 +340,5 @@ module.exports.String16 = String16
 module.exports.String32 = String32
 module.exports.VarString = VarString
 module.exports.Uuid = Uuid
+module.exports.Datagram = Datagram
 module.exports.Socket = Socket

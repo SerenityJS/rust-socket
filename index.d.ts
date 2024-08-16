@@ -17,23 +17,6 @@ export interface NetworkIdentifier {
   */
   port: number
 }
-/**
- * A datagram is a packet of data that is sent over a network from one device to another.
-*/
-export interface Datagram {
-  /**
-  * The identifier that sent the datagram.
-  */
-  identifier: NetworkIdentifier
-  /**
-  * The buffer that contains the data of the datagram.
-  */
-  buffer: Buffer
-  /**
-  * The size of the buffer.
-  */
-  size: number
-}
 export declare class BinaryStream {
   /**
   * **binary**
@@ -931,6 +914,24 @@ export declare class Uuid {
   * Writes a signed 128-bit ( 16 bytes ) uuid string to the stream.
   */
   static write(stream: BinaryStream, value: string): void
+}
+/**
+ * A datagram is a packet of data that is sent over a network from one device to another.
+*/
+export declare class Datagram {
+  /**
+  * The identifier that sent the datagram.
+  */
+  identifier: NetworkIdentifier
+  /**
+  * The buffer that contains the data of the datagram.
+  */
+  buffer: Buffer
+  /**
+  * The size of the buffer.
+  */
+  size: number
+  reply(buffer: Buffer): void
 }
 export declare class Socket {
   /**

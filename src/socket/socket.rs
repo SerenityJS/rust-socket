@@ -87,21 +87,39 @@ impl Socket {
         // Receive the packet
         let (size, addr) = match socket.recv_from(&mut buf) {
           Ok((size, addr)) => (size, addr),
-          Err(_) => continue,
+          Err(_) => {
+            // Sleep the thread using the TPS
+            std::thread::sleep(std::time::Duration::from_millis(1000 / tps as u64));
+
+            // Skip the rest of the loop
+            continue;
+          }
         };
 
         // Check if the size is 0
-        // TODO: Callback an error
         if size == 0 { continue }
 
         // Resize the buffer to the size of the packet
         let buf = &buf[..size];
         let buffer = Buffer::from(buf);
 
+        // Create a new NetworkIdentifier instance
         let identifier = NetworkIdentifier::from_addr(addr);
 
+        // Clone the socket
+        let socket = match socket.try_clone() {
+          Ok(socket) => socket,
+          Err(err) => {
+            // Call the recv function with an error
+            recv.call(Err(err.into()), napi::threadsafe_function::ThreadsafeFunctionCallMode::NonBlocking);
+
+            // Skip the rest of the loop
+            continue;
+          },
+        };
+
         // Create a new Datagram instance
-        let datagram = Datagram::new(identifier, buffer, size as u32);
+        let datagram = Datagram::new(identifier, buffer, size as u32, socket);
 
         // Call the recv function
         recv.call(Ok(datagram), napi::threadsafe_function::ThreadsafeFunctionCallMode::NonBlocking);

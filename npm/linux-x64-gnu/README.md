@@ -1,3 +1,3 @@
-# `@serenityjs/rust-raknet-linux-x64-gnu`
+# `@serenityjs/rust-socket-linux-x64-gnu`
 
-This is the **x86_64-unknown-linux-gnu** binary for `@serenityjs/rust-raknet`
+This is the **x86_64-unknown-linux-gnu** binary for `@serenityjs/rust-socket`

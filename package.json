@@ -1,10 +1,10 @@
 {
-  "name": "@serenityjs/rust-raknet",
+  "name": "@serenityjs/rust-socket",
   "version": "0.0.0",
   "main": "index.js",
   "types": "index.d.ts",
   "napi": {
-    "name": "rust-raknet",
+    "name": "rust-socket",
     "triples": {
       "additional": [
         "aarch64-apple-darwin",

@@ -1,3 +1,3 @@
-# `@serenityjs/rust-raknet-darwin-arm64`
+# `@serenityjs/rust-socket-darwin-arm64`
 
-This is the **aarch64-apple-darwin** binary for `@serenityjs/rust-raknet`
+This is the **aarch64-apple-darwin** binary for `@serenityjs/rust-socket`

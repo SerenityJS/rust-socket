@@ -1,5 +1,5 @@
 {
-  "name": "@serenityjs/rust-raknet-linux-x64-gnu",
+  "name": "@serenityjs/rust-socket-linux-x64-gnu",
   "version": "0.0.0",
   "os": [
     "linux"
@@ -7,9 +7,9 @@
   "cpu": [
     "x64"
   ],
-  "main": "rust-raknet.linux-x64-gnu.node",
+  "main": "rust-socket.linux-x64-gnu.node",
   "files": [
-    "rust-raknet.linux-x64-gnu.node"
+    "rust-socket.linux-x64-gnu.node"
   ],
   "license": "MIT",
   "engines": {
