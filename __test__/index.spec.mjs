@@ -1,7 +1,13 @@
 import test from 'ava'
 
-import { sum } from '../index.js'
+import { Socket } from '../index.js'
 
-test('sum from native', (t) => {
-  t.is(sum(1, 2), 3)
+test('Socket', t => {
+  const socket = new Socket("0.0.0.0")
+  t.is(typeof socket, 'object')
+  t.is(typeof socket.address, 'string')
+  t.is(typeof socket.port, 'number')
+  t.is(typeof socket.start, 'function')
+  t.is(typeof socket.stop, 'function')
+  t.is(typeof socket.send, 'function')
 })

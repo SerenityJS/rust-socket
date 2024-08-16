@@ -7,11 +7,6 @@ export const enum Endianness {
   Big = 0,
   Little = 1
 }
-export interface Encapsulated {
-  identifier: NetworkIdentifier
-  buffer: Buffer
-  deltaTime: number
-}
 export interface NetworkIdentifier {
   /**
   * The address of the connection.
@@ -21,6 +16,23 @@ export interface NetworkIdentifier {
   * The port of the connection.
   */
   port: number
+}
+/**
+ * A datagram is a packet of data that is sent over a network from one device to another.
+*/
+export interface Datagram {
+  /**
+  * The identifier that sent the datagram.
+  */
+  identifier: NetworkIdentifier
+  /**
+  * The buffer that contains the data of the datagram.
+  */
+  buffer: Buffer
+  /**
+  * The size of the buffer.
+  */
+  size: number
 }
 export declare class BinaryStream {
   /**
@@ -920,19 +932,21 @@ export declare class Uuid {
   */
   static write(stream: BinaryStream, value: string): void
 }
-export declare class Server {
+export declare class Socket {
+  /**
+  * The address of the socket.
+  */
   address: string
+  /**
+  * The port of the socket.
+  */
   port: number
-  constructor(address: string, port?: number | undefined | null)
-  start(callback: (err: Error | null, arg: Encapsulated) => any, tps: number): void
-}
-export declare class Connection {
   /**
-  * The network identifier of the connection.
+  * The ticks per second of the server.
   */
-  identifier: NetworkIdentifier
-  /**
-  * The maximum transmission unit size of the connection.
-  */
-  mtuSize: number
+  tps: number
+  constructor(address: string, port?: number | undefined | null, tps?: number | undefined | null)
+  start(recv: (err: Error | null, arg: Datagram) => any): void
+  stop(): void
+  send(identifier: NetworkIdentifier, buffer: Buffer): void
 }
