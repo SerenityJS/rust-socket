@@ -1,6 +1,5 @@
 #![deny(clippy::all)]
 
-use binarystream::binary::BinaryStream;
 use napi::{bindgen_prelude::Buffer, threadsafe_function::ThreadsafeFunction, Error, Result};
 use napi_derive::napi;
 use std::{net::UdpSocket, sync::{Arc, Mutex}};
@@ -62,7 +61,7 @@ impl Socket {
   }
 
   #[napi]
-  pub fn start(&mut self, recv: ThreadsafeFunction<Datagram>) -> Result<()> {
+  pub fn start(&mut self, recv: ThreadsafeFunction<Datagram>, tick: ThreadsafeFunction<u32>) -> Result<()> {
     // Clone the socket & recv function
     let socket = self.socket.clone();
     let recv = recv.clone();
@@ -97,6 +96,9 @@ impl Socket {
         let (size, addr) = match socket.recv_from(&mut buf) {
           Ok((size, addr)) => (size, addr),
           Err(_) => {
+            // Call the tick function
+            tick.call(Ok(delta_time), napi::threadsafe_function::ThreadsafeFunctionCallMode::NonBlocking);
+
             // Sleep the thread using the TPS
             std::thread::sleep(std::time::Duration::from_millis(1000 / tps as u64));
 
@@ -128,10 +130,11 @@ impl Socket {
         };
 
         // Create a new Datagram instance
-        let datagram = Datagram::new(identifier, buffer, size as u32, socket, delta_time);
+        let datagram = Datagram::new(identifier, buffer, size as u32, socket);
 
         // Call the recv function
         recv.call(Ok(datagram), napi::threadsafe_function::ThreadsafeFunctionCallMode::NonBlocking);
+        tick.call(Ok(delta_time), napi::threadsafe_function::ThreadsafeFunctionCallMode::NonBlocking);
 
         // Sleep the thread using the TPS
         std::thread::sleep(std::time::Duration::from_millis(1000 / tps as u64));
@@ -151,14 +154,13 @@ impl Socket {
   }
 
   #[napi]
-  pub fn send(&self, identifier: NetworkIdentifier, stream: &BinaryStream) -> Result<()> {
+  pub fn send(&self, identifier: NetworkIdentifier, buffer: Buffer) -> Result<()> {
     // Lock the socket
     let socket = self.socket.lock().unwrap();
     let addr = identifier.to_addr();
-    let buf = &stream.binary;
 
     // Send the packet
-    match socket.send_to(&buf, addr) {
+    match socket.send_to(&buffer, addr) {
       Ok(_) => (),
       Err(err) => return Err(Error::new(napi::Status::GenericFailure, err.to_string())),
     }

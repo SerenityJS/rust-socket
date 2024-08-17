@@ -924,18 +924,14 @@ export declare class Datagram {
   */
   identifier: NetworkIdentifier
   /**
-  * The binary stream that contains the data.
+  * The data buffer of the datagram.
   */
-  stream: BinaryStream
+  buffer: Buffer
   /**
   * The size of the buffer.
   */
   size: number
-  /**
-  * The time between the last packet and the current packet.
-  */
-  deltaTime: number
-  reply(stream: BinaryStream): void
+  reply(buffer: Buffer): void
 }
 export declare class Socket {
   /**
@@ -951,7 +947,7 @@ export declare class Socket {
   */
   tps: number
   constructor(address: string, port?: number | undefined | null, tps?: number | undefined | null)
-  start(recv: (err: Error | null, arg: Datagram) => any): void
+  start(recv: (err: Error | null, arg: Datagram) => any, tick: (err: Error | null, arg: number) => any): void
   stop(): void
-  send(identifier: NetworkIdentifier, stream: BinaryStream): void
+  send(identifier: NetworkIdentifier, buffer: Buffer): void
 }
